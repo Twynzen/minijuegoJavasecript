@@ -21,12 +21,45 @@
         game.message = document.querySelector(".message");
         game.adivinarInput = document.querySelector("input");
         game.btn = document.querySelector("button");
-        init();
-      });
+        game.btn.addEventListener("click",guessValue);
+          init();
+        })
+
+        function guessValue(){
+          let tempGuess = game.adivinarInput.value;
+          tempGuess = parseInt(tempGuess);
+          if (isNaN(tempGuess)) {
+            message("Porfavor solo digitos", "red");
+          }else if (tempGuess=== game.num) {
+            message("Bien echo has adivinado el numero "+game.num,"96FF00");
+            game.adivinarInput.style.borderColor = "96FF00";
+          }
+          else {
+            let holder = tempGuess > game.num ?{
+              "color": "blue"
+              ,"m":"Mas corto"
+            }:{
+              "c":"purple"
+              ,"m":"Más alto"
+            };
+            message(holder.m,holder.c);
+            game.adivinarInput.style.borderColor = holder.c;
+          }
+          console.log(tempGuess);
+        }
+
+
 
       function init() {
-        let tempMes = "Bienvenido al juego."," ADIVINA EL NÚMERO"+game.min+"to"+game.max;
+        game.num = ranNumber(game.min,game.max);
+        let tempMes = "Bienvenido al juego. ADIVINA EL NÚMERO de "+game.min+" al "+game.max;
         message(tempMes,"blue");
+      }
+
+      function ranNumber(min,max){
+
+        return Math.floor(Math.random()*(max-min +1)+min);
+
       }
 
       function message(mes,clr){
