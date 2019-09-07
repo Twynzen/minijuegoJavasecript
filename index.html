@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>javascript udemy</title>
+    .replay{
+      padding: 5px
+    }
+
   </head>
   <body>
     <div class="output">
@@ -26,13 +30,15 @@
         })
 
         function guessValue(){
+          game.guesses++;
           let tempGuess = game.adivinarInput.value;
           tempGuess = parseInt(tempGuess);
           if (isNaN(tempGuess)) {
             message("Porfavor solo digitos", "red");
           }else if (tempGuess=== game.num) {
-            message("Bien echo has adivinado el numero "+game.num,"96FF00");
-            game.adivinarInput.style.borderColor = "96FF00";
+            message("Bien echo has adivinado el numero "+game.num + "in"+ game.guesses+ " intentos","96FF00");
+
+            findeljuego();
           }
           else {
             let holder = tempGuess > game.num ?{
@@ -43,14 +49,20 @@
               ,"m":"Más alto"
             };
             message(holder.m,holder.c);
-            game.adivinarInput.style.borderColor = holder.c;
+
           }
-          console.log(tempGuess);
+          console.log(game.num);
         }
 
+      function findeljuego(){
+        game.btn.innerHTML = "reinicia";
+        game.guessesInput.style.display = "none";
+
+      }
 
 
       function init() {
+        game.guesses = 0;
         game.num = ranNumber(game.min,game.max);
         let tempMes = "Bienvenido al juego. ADIVINA EL NÚMERO de "+game.min+" al "+game.max;
         message(tempMes,"blue");
@@ -65,6 +77,9 @@
       function message(mes,clr){
         game.message.innerHTML=mes;
         game.message.style.color = clr||"black";
+        game.adivinarInput.style.borderColor = clr || "black";
+        game.btn.backgroundColor = clr || "black";
+        game.btn.style.colo = white;
       }
 
     </script>
