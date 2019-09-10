@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <meta charset="utf-8">
     <title>javascript udemy</title>
-    .replay{
-      padding: 5px
-    }
 
   </head>
   <body>
     <div class="output">
         <div class="message"></div>
         <input type="number" >
-        <button> Adivina! </button>
+        <button>Adivina</button>
     </div>
 
     <script>
@@ -30,13 +28,22 @@
         })
 
         function guessValue(){
+          if (game.btn.classList.contains("replay")) {
+            init();
+            game.guesses = 0;
+            game.num = ranNumber(game.min, game.max);
+            game.btn.innerHTML = "Adivina";
+            game.adivinarInput.style.display = "block";
+            game.btn.classList.remove("replay");
+          }
           game.guesses++;
           let tempGuess = game.adivinarInput.value;
+          game.adivinarInput.value = "";
           tempGuess = parseInt(tempGuess);
           if (isNaN(tempGuess)) {
             message("Porfavor solo digitos", "red");
           }else if (tempGuess=== game.num) {
-            message("Bien echo has adivinado el numero "+game.num + "in"+ game.guesses+ " intentos","96FF00");
+            message("Bien echo has adivinado el numero "+game.num + " en "+ game.guesses+ " intentos","96FF00");
 
             findeljuego();
           }
@@ -56,7 +63,8 @@
 
       function findeljuego(){
         game.btn.innerHTML = "reinicia";
-        game.guessesInput.style.display = "none";
+        game.adivinarInput.style.display = "none";
+        game.btn.classList.add("replay");
 
       }
 
@@ -79,7 +87,7 @@
         game.message.style.color = clr||"black";
         game.adivinarInput.style.borderColor = clr || "black";
         game.btn.backgroundColor = clr || "black";
-        game.btn.style.colo = white;
+        game.btn.style.color = "white";
       }
 
     </script>
